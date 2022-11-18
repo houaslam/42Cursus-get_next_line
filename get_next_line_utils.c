@@ -6,83 +6,55 @@
 /*   By: houaslam <houaslam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:38:08 by houaslam          #+#    #+#             */
-/*   Updated: 2022/11/17 23:33:50 by houaslam         ###   ########.fr       */
+/*   Updated: 2022/11/18 04:47:48 by houaslam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
 	char	*p;
 	size_t	b;
+	int		l;
 
-	if (!s1 || !s2)
-		return (NULL);
 	i = 0;
 	j = 0;
-	b = strlen((char *)s2);
-	p = (char *)malloc(sizeof(char) * (strlen((char *)s1) + b) + 1);
+	b = ft_strlen(s2);
+	l = ft_strlen(s1);
+	p = (char *)malloc(sizeof(char) * (l + b) + 1);
 	if (!p)
 		return (NULL);
+	if (!s1 && s2)
+		return (ft_strdup(s2));
 	while (s1[i] != '\0')
 	{
 		p[i] = s1[i];
 		i++;
 	}
 	while (s2[j] != '\0')
-	{
-		p[i + j] = s2[j];
-		j++;
-	}
+		p[i++] = s2[j++];
 	free(s1);
-	p[i + j] = '\0';
-	return (p);
-}
-
-int	ft_strchr(const char *str, int c)
-{
-	int				i;
-	char			*p;
-	char			f;
-
-	i = 0;
-	if (!str)
-		return 0;
-	f = (char)c;
-	p = (char *)str;
-	while (p[i] != f)
-	{
-		if (p[i] == '\0')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	unsigned int	i;
-	char			*p;
-	size_t			k;
-
-	if (!s)
-		return (0);
-	k = ft_strlen((char *)s);
-	if (start > k)
-		return (ft_strdup(""));
-	if (len > ft_strlen((char *)s + start))
-		len = ft_strlen((char *)s + start);
-	p = (char *)malloc(sizeof(char) * (len + 1));
-	i = 0;
-	if (!p)
-		return (NULL);
-	while (i < len && start < k && s[i] != '\n')
-		p[i++] = s[start++];
 	p[i] = '\0';
 	return (p);
+}
+
+int	ft_strchr(const char *str)
+{
+	int				i;
+
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 size_t	ft_strlen(char *str)
@@ -90,7 +62,9 @@ size_t	ft_strlen(char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i] != '\n' && str[i])
+	if (str == NULL)
+		return (0);
+	while (str[i] != '\0')
 		i++;
 	return (i);
 }
