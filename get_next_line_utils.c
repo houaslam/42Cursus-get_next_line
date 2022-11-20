@@ -6,7 +6,7 @@
 /*   By: houaslam <houaslam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:38:08 by houaslam          #+#    #+#             */
-/*   Updated: 2022/11/18 04:47:48 by houaslam         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:44:28 by houaslam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	j = 0;
 	b = ft_strlen(s2);
 	l = ft_strlen(s1);
+	if (!s1 && s2)
+		return (ft_strdup(s2));
 	p = (char *)malloc(sizeof(char) * (l + b) + 1);
 	if (!p)
 		return (NULL);
-	if (!s1 && s2)
-		return (ft_strdup(s2));
 	while (s1[i] != '\0')
 	{
 		p[i] = s1[i];
@@ -36,8 +36,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	while (s2[j] != '\0')
 		p[i++] = s2[j++];
-	free(s1);
 	p[i] = '\0';
+	free(s1);
 	return (p);
 }
 
@@ -69,7 +69,7 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char *s)
 {
 	char	*s1;
 	size_t	i;

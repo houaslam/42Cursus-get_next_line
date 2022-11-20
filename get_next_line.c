@@ -6,7 +6,7 @@
 /*   By: houaslam <houaslam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:41:51 by houaslam          #+#    #+#             */
-/*   Updated: 2022/11/18 20:43:10 by houaslam         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:35:29 by houaslam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ char	*ft_handle(char *buf)
 		return (0);
 	while (buf[i] != '\n' && buf[i])
 		i++;
-	res = (char *)malloc(i + 2);
+	if (buf[i] == '\n')
+		i++;
+	res = (char *)malloc(i + 1);
 	i = 0;
 	while (buf[i] != '\n' && buf[i])
 	{
@@ -72,27 +74,24 @@ char	*ft_check(char *buf, int fd)
 {
 	char	*save;
 	int		i;
-	char	*res;
 
 	i = 1;
-	res = NULL;
 	save = (char *)malloc(BUFFER_SIZE + 1);
 	if (!save)
 		return (NULL);
-	while (ft_strchr(res) == 0 && i != 0)
+	while (ft_strchr(buf) == 0 && i != 0)
 	{
 		i = read(fd, save, BUFFER_SIZE);
 		if (i == -1)
-			ft_free(save, buf);
-		save[i] = '\0';
+			return (ft_free(save, buf));
 		if (i == 0)
 			break ;
-		if (!res)
-			res = buf;
-		res = ft_strjoin(res, save);
+		save[i] = '\0';
+		buf = ft_strjoin(buf, save);
 	}
-	free(save);
-	return (res);
+	if (save[0])
+		free(save);
+	return (buf);
 }
 
 char	*get_next_line(int fd)
@@ -101,11 +100,16 @@ char	*get_next_line(int fd)
 	char		*str;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	str = ft_check(buf, fd);
-	line = ft_handle(str);
+	if (!str || !str[0])
+	{
+		free(buf);
+		return (NULL);
+	}
 	buf = after(str);
+	line = ft_handle(str);
 	free(str);
 	return (line);
 }
