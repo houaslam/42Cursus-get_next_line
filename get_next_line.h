@@ -6,7 +6,7 @@
 /*   By: houaslam <houaslam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:09:07 by houaslam          #+#    #+#             */
-/*   Updated: 2022/11/21 18:20:50 by houaslam         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:26:25 by houaslam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#define BUFFER_SIZE	1
+#  define BUFFER_SIZE	1
 # endif
 
 # include <unistd.h>

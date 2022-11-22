@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: houaslam <houaslam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 16:24:56 by houaslam          #+#    #+#             */
-/*   Updated: 2022/11/21 18:19:34 by houaslam         ###   ########.fr       */
+/*   Created: 2022/11/15 14:09:07 by houaslam          #+#    #+#             */
+/*   Updated: 2022/11/22 16:09:44 by houaslam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
-#define BUFFER_SIZE	1
+#  define BUFFER_SIZE	1
 # endif
 
 # include <unistd.h>
