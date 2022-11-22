@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: houaslam <houaslam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 14:38:08 by houaslam          #+#    #+#             */
-/*   Updated: 2022/11/22 11:33:40 by houaslam         ###   ########.fr       */
+/*   Created: 2022/11/21 16:24:59 by houaslam          #+#    #+#             */
+/*   Updated: 2022/11/21 18:45:57 by houaslam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -20,7 +20,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	p = (char *)malloc(sizeof(char) * 1 + ft_strlen(s1) + ft_strlen(s2));
+	p = (char *)malloc(sizeof(char) * (1 + ft_strlen(s1) + ft_strlen(s2)));
 	if (!p)
 	{
 		free(s1);
@@ -48,7 +48,7 @@ int	ft_strchr(char *str)
 	while (str[i])
 	{
 		if (str[i] == '\n')
-			return (i);
+			return (1);
 		i++;
 	}
 	return (0);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: houaslam <houaslam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 14:41:51 by houaslam          #+#    #+#             */
-/*   Updated: 2022/11/22 13:24:17 by houaslam         ###   ########.fr       */
+/*   Created: 2022/11/21 16:24:52 by houaslam          #+#    #+#             */
+/*   Updated: 2022/11/21 19:04:53 by houaslam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*after(char *buf)
 {
@@ -64,7 +64,7 @@ char	*ft_check(char *buf, int fd)
 	int		i;
 
 	i = 1;
-	save = (char *)malloc((BUFFER_SIZE * sizeof(char)) + sizeof(char));
+	save = (char *)malloc(BUFFER_SIZE + 1 * sizeof(char));
 	if (!save)
 		return (NULL);
 	while (ft_strchr(buf) == 0)
@@ -72,6 +72,7 @@ char	*ft_check(char *buf, int fd)
 		i = read(fd, save, BUFFER_SIZE);
 		if (i == -1)
 		{
+			
 			free(buf);
 			free(save);
 			return (NULL);
@@ -81,27 +82,25 @@ char	*ft_check(char *buf, int fd)
 		save[i] = '\0';
 		buf = ft_strjoin(buf, save);
 	}
-	if (save || save[0])
-		free(save);
+	free(save);
 	return (buf);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
+	static char	*buf[4096];
 	char		*str;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	str = ft_check(buf, fd);
+	str = ft_check(buf[fd], fd);
 	if (!str || !str[0])
 	{
-		if (buf)
-			free(buf);
+		free(buf[fd]);
 		return (NULL);
 	}
-	buf = after(str);
+	buf[fd] = after(str);
 	line = ft_handle(str);
 	free(str);
 	return (line);
